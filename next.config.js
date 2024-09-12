@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { isServer }) => {
-    // 只在服务器端构建时添加这个规则
+    // Add this rule only during server-side build
     if (isServer) {
       config.externals.push({
         "onnxruntime-node": "commonjs onnxruntime-node",
@@ -18,4 +18,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

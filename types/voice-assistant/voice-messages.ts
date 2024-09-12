@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// 使用Zod定义MessageRole和Message
+// Use Zod to define MessageRole and Message
 const MessageRoleSchema = z.enum(["system", "user", "assistant"]);
 
 const MessageSchema = z.object({
@@ -8,6 +8,6 @@ const MessageSchema = z.object({
   content: z.string(),
 });
 
-// 导出类型
+// Export types
 export type MessageRole = z.infer<typeof MessageRoleSchema>;
 export type Message = z.infer<typeof MessageSchema>;

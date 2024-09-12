@@ -1,13 +1,13 @@
 {
-  // 使用 IntelliSense 了解相关属性。
-  // 悬停以查看现有属性的描述。
-  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  // Use IntelliSense to learn about related attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
       "type": "node",
       "request": "launch",
-      "name": "启动 Next.js",
+      "name": "Launch Next.js",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["run", "dev"],
       "env": {
@@ -19,7 +19,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "调试当前文件",
+      "name": "Debug Current File",
       "program": "${file}",
       "outFiles": ["${workspaceFolder}/**/*.js"],
       "runtimeArgs": ["--experimental-specifier-resolution=node"],

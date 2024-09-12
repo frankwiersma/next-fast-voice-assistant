@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { VoiceAssistant } from "@/app/lib/voice-assistant";
 import { VoiceAssistantConfig } from "@/types";
 
-// 创建一个默认的assistant实例
+// Create a default assistant instance
 const defaultAssistant = new VoiceAssistant();
 
 export async function POST(request: NextRequest) {
@@ -17,13 +17,13 @@ export async function POST(request: NextRequest) {
 
     let audioBuffer = Buffer.from(data.audio, "base64");
 
-    // 确保 audioBuffer 的长度是 4 的倍数
+    // Ensure audioBuffer length is a multiple of 4
     if (audioBuffer.length % 4 !== 0) {
       const padding = 4 - (audioBuffer.length % 4);
       audioBuffer = Buffer.concat([audioBuffer, Buffer.alloc(padding)]);
     }
 
-    // 检查是否有自定义配置
+    // Check if there is a custom configuration
     let assistant = defaultAssistant;
     if (data.config && typeof data.config === "object") {
       const config: Partial<VoiceAssistantConfig> = {
@@ -53,9 +53,9 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const message = searchParams.get("message") || "你好，今天过得怎么样？";
+    const message = searchParams.get("message") || "Hello, how are you doing today?";
 
-    // 检查是否有自定义配置
+    // Check if there is a custom configuration
     let assistant = defaultAssistant;
     const config: Partial<VoiceAssistantConfig> = {};
     if (searchParams.get("language"))

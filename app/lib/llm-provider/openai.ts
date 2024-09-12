@@ -4,7 +4,7 @@ let openaiInstance: ReturnType<typeof createOpenAI> | null = null;
 
 export function getOpenai() {
   if (!openaiInstance) {
-    const baseUrl = "https://api.ohmygpt.com/v1/";
+    const baseUrl = "https://api.openai.com/v1/";
 
     if (!baseUrl) {
       throw new Error("openai-baseUrl is not defined.");

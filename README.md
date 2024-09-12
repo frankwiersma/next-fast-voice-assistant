@@ -1,46 +1,46 @@
 # NEXT FAST VOICE ASSISTANT API
 
-## 项目简介
+## Project Overview
 
-这个项目是[fast-voice-assistant](https://github.com/dsa/fast-voice-assistant.git)的 Typescript 版本。
+This project is the TypeScript version of [fast-voice-assistant](https://github.com/dsa/fast-voice-assistant.git).
 
-**特点: 就一个字, 快!🚀, 建议使用 WebRTC 传输音频流, 这样延迟更低。**
+**Key feature: Speed! 🚀 We recommend using WebRTC for transmitting audio streams, which minimizes latency.**
 
-实现并集成了 OpenAPI, 一个高度可定制的 AI 语音助手，集成了最先进的语音识别（STT）、自然语言处理（NLP）和语音合成（TTS）技术。它提供了一个简单而强大的接口，可以轻松地将语音交互功能集成到各种应用程序中。
+It integrates OpenAPI, a highly customizable AI voice assistant, with advanced Speech-to-Text (STT), Natural Language Processing (NLP), and Text-to-Speech (TTS) technologies. It provides a simple yet powerful interface that makes it easy to integrate voice interaction capabilities into various applications.
 
-## 部署
+## Deployment
 
-⚠️ 一些限制：
+⚠️ Some limitations:
 
-- 本项目由于用到 `onnxruntime-node` 依赖，所以目前需要在`next.config.js`中添加 `externals` 配置，将 `onnxruntime-node` 配置为 `commonjs onnxruntime-node`。
-- 当然这也带来 Serverless 部署的问题，目前由于服务器大小的限制（250MB），在构建时`onnxruntime-node`大小超过 500MB，所以无法部署为 Serverless 函数。
-- 建议使用传统的方式部署，或者如果你找到了更好的办法，欢迎提交 PR。
+- This project requires the `onnxruntime-node` dependency, so you need to add `externals` configuration in `next.config.js` and set `onnxruntime-node` as `commonjs onnxruntime-node`.
+- Due to the large size of `onnxruntime-node` (over 500MB at build time), it cannot be deployed as a Serverless function because of server size restrictions (250MB).
+- We recommend deploying it traditionally, but if you find a better solution, feel free to submit a PR.
 
-## 主要特性
+## Key Features
 
-- **语音活动检测（VAD）**：使用高效的算法精确识别语音输入。
-- **语音转文字（STT）**：采用 Deepgram 的先进模型进行准确的语音转录。
-- **自然语言处理（NLP）**：利用强大的语言模型（如 GPT）生成智能响应。
-- **文字转语音（TTS）**：使用 Cartesia 的高质量语音合成技术。
-- **高度可定制**：支持多语言、多种模型选择，以及灵活的配置选项。
-- **简单集成**：提供简洁的 RESTful API，易于集成到各种应用中。
+- **Voice Activity Detection (VAD)**: Uses efficient algorithms to accurately detect voice input.
+- **Speech-to-Text (STT)**: Leverages advanced models from Deepgram for precise speech transcription.
+- **Natural Language Processing (NLP)**: Utilizes powerful language models (like GPT) to generate intelligent responses.
+- **Text-to-Speech (TTS)**: Uses high-quality speech synthesis technology from Cartesia.
+- **Highly Customizable**: Supports multiple languages, model choices, and flexible configuration options.
+- **Easy Integration**: Provides a simple RESTful API, making it easy to integrate into various applications.
 
-## 技术栈
+## Tech Stack
 
 - Next.js 14 (App Router)
 - TypeScript
 - Deepgram STT
-- GPT/GROQ 语言模型
+- GPT/GROQ language models
 - Cartesia TTS
-- @ricky0123/vad 用于语音活动检测
+- @ricky0123/vad for voice activity detection
 
-## API 使用指南
+## API Usage Guide
 
 ### POST /api/voice-assistant
 
-处理音频输入并返回语音响应。
+Processes audio input and returns a voice response.
 
-#### 请求体
+### Request Body
 
 ```json
 {
@@ -54,36 +54,36 @@
 }
 ```
 
-- `audio`: Base64 编码的音频数据（必需）
-- `config`: 可选的配置对象
-  - `language`: 语言代码（可选，默认为 "zh"）这里的国际化语言代码使用的格式是 [BCP 47](https://en.wikipedia.org/wiki/IETF_language_tag)
-  - `sttModel`: 语音转文字模型（可选）参考[Deepgram 的 Models](https://developers.deepgram.com/docs/models)
-  - `llmModel`: 语言模型（可选）使用[Groq](https://console.groq.com/docs/models)的模型
-  - `ttsVoiceId`: 文字转语音的声音 ID（可选）可以参考[Cartesia 的 Voices](https://play.cartesia.ai/library)
+- `audio`: Base64-encoded audio data (required)
+- `config`: Optional configuration object
+  - `language`: Language code (optional, default is "zh"). The international language code format used here is [BCP 47](https://en.wikipedia.org/wiki/IETF_language_tag)
+  - `sttModel`: Speech-to-text model (optional) See [Deepgram's Models](https://developers.deepgram.com/docs/models) for reference.
+  - `llmModel`: Language model (optional) Uses models from [Groq](https://console.groq.com/docs/models)
+  - `ttsVoiceId`: Text-to-speech voice ID (optional). You can refer to [Cartesia's Voices](https://play.cartesia.ai/library) for available options.
 
-#### 响应
+### Response
 
-返回 WAV 格式的音频数据。
+Returns audio data in WAV format.
 
 ### GET /api/voice-assistant
 
-生成语音问候。
+Generates a voice greeting.
 
-#### 查询参数
+#### Query Parameters
 
-- `message`: 要转换为语音的文本（可选，默认为 "你好，今天过得怎么样？"）
-- `language`: 语言代码（可选）
-- `sttModel`: 语音转文字模型（可选）
-- `llmModel`: 语言模型（可选）
-- `ttsVoiceId`: 文字转语音的声音 ID（可选）
+- `message`: The text to convert to speech (optional, default is "Hello, how are you today?")
+- `language`: Language code (optional)
+- `sttModel`: Speech-to-text model (optional)
+- `llmModel`: Language model (optional)
+- `ttsVoiceId`: Text-to-speech voice ID (optional)
 
-#### 响应
+### Response
 
-返回 WAV 格式的音频数据。
+Returns audio data in WAV format.
 
-## 使用示例
+### Example Usage
 
-### 使用 cURL 发送 POST 请求
+#### Sending a POST request with cURL
 
 ```bash
 curl -X POST https://your-api-url/api/voice-assistant \
@@ -98,7 +98,7 @@ curl -X POST https://your-api-url/api/voice-assistant \
     }
   }'
 
-# 使用默认配置的例子
+# Example using default configuration
 AUDIO_BASE64=$(base64 -i input-audio.wav | tr -d '\n')
 echo "{\"audio\": \"$AUDIO_BASE64\"}" > temp_audio.json
 
@@ -109,41 +109,41 @@ curl -X POST http://localhost:3000/api/voice-assistant \
 rm temp_audio.json
 ```
 
-### 使用 cURL 发送 GET 请求
+#### Sending a GET request with cURL
 
 ```bash
 curl -G "http://localhost:3000/api/voice-assistant" \
-     --data-urlencode "message=Next Fast Voice Assistant简直太快太方便了吧？" \
+     --data-urlencode "message=Next Fast Voice Assistant is incredibly fast and convenient!" \
      --data-urlencode "language=zh" \
      --data-urlencode "sttModel=nova-2" \
      --data-urlencode "llama-3.1-8b-instant3" \
      --data-urlencode "ttsVoiceId=eda5bbff-1ff1-4886-8ef1-4e69a77640a0" | ffmpeg -f f32le -ar 44100 -ac 1 -i pipe: voice.wav
 ```
 
-## 项目优势
+## Project Advantages
 
-1. **高度灵活**：支持多种语言和模型，可以根据不同需求进行定制。
-2. **性能优越**：使用最新的 AI 技术，提供快速、准确的语音交互体验。
-3. **易于集成**：简单的 API 设计使其容易集成到各种应用中。
-4. **可扩展性强**：模块化设计允许轻松添加新功能或替换现有组件。
-5. **实时处理**：支持实时语音输入和响应。
-6. **安全可靠**：采用严格的错误处理和安全措施。
+1. **Highly flexible**: Supports multiple languages and models, customizable for different needs.
+2. **Superior performance**: Uses cutting-edge AI technology to deliver fast, accurate voice interaction.
+3. **Easy integration**: Simple API design makes it easy to integrate into various applications.
+4. **High scalability**: Modular design allows for easy addition of new features or replacement of existing components.
+5. **Real-time processing**: Supports real-time voice input and response.
+6. **Secure and reliable**: Employs strict error handling and security measures.
 
-## 部署
+## Deployment
 
-1. 克隆仓库：
+1. Clone the repository:
 
    ```
    git clone https://github.com/steveoOn/next-fast-voice-assistant.git
    ```
 
-2. 安装依赖：
+2. Install dependencies:
 
    ```
    pnpm install
    ```
 
-3. 设置环境变量（在 `.env.local` 文件中）：
+3. Set environment variables (in the `.env.local` file):
 
    ```
    DEEPGRAM_API_KEY=your_deepgram_key
@@ -151,23 +151,23 @@ curl -G "http://localhost:3000/api/voice-assistant" \
    CARTESIA_API_KEY=your_cartesia_key
    ```
 
-   参考 [.env.example](./.env.example) 文件来创建你自己的环境变量文件.
+   Refer to the [.env.example](./.env.example) file to create your own environment variables file.
 
-4. 运行开发服务器：
+4. Run the development server:
 
    ```
    pnpm dev
    ```
 
-5. 构建生产版本：
+5. Build the production version:
    ```
    pnpm build
    ```
 
-## 贡献
+## Contribution
 
-欢迎贡献！请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何开始。
+Contributions are welcome! Please check out [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
 
-## 许可证
+## License
 
-本项目采用 [MIT 许可证](LICENSE)。
+This project is licensed under the [MIT License](LICENSE).

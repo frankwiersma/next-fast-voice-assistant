@@ -1,7 +1,7 @@
 import { createClient } from "@deepgram/sdk";
 import axios from "axios";
 import { NonRealTimeVAD } from "@ricky0123/vad/dist/index.node";
-import { Message, VoiceAssistantConfig } from "@/types";
+import { Message, VoiceAssistantConfig } from "../../types/voice-assistant/voice-assistant-config";
 import { generateText } from "ai";
 import { getGroq } from "../llm-provider";
 
